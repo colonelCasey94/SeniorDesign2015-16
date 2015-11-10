@@ -1,0 +1,142 @@
+%implements s1_b0_2jx9p_TLCInterface "C"
+
+%function getInputAddr_1_3_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.TmpSignalConversionAtToWorkspac" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_3_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.TmpSignalConversionAtToWorkspac" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_1_3_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getDWork_1_3_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getInputAddr_1_4_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.TmpSignalConversionAtToWorksp_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_4_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.TmpSignalConversionAtToWorksp_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_1_4_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_1_4_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getInputAddr_1_5_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.Saturation1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_5_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.Saturation1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutputAddr_1_6_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.fread"
+%endfunction
+
+%function getOutput_1_6_0_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.fread"
+%endfunction
+
+%function getInputAddr_1_3_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.TmpSignalConversionAtToWorkspac" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_3_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.TmpSignalConversionAtToWorkspac" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_1_3_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getDWork_1_3_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getInputAddr_1_4_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.TmpSignalConversionAtToWorksp_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_4_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.TmpSignalConversionAtToWorksp_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_1_4_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_1_4_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getInputAddr_1_3_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.TmpSignalConversionAtToWorkspac" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_3_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.TmpSignalConversionAtToWorkspac" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_1_3_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getDWork_1_3_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getInputAddr_1_4_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_B.TmpSignalConversionAtToWorksp_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_1_4_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_B.TmpSignalConversionAtToWorksp_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_1_4_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&werks_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_1_4_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "werks_DW.ToWorkspace1_PWORK"
+%endfunction
+

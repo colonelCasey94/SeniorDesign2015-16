@@ -1,0 +1,35 @@
+%implements s1_b0_2jx9p_Update "C"
+
+%function Update(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T *lastU;
+%closefile localVarDecl
+/* Update for Derivative: '<Root>/Derivative' */
+if (werks_DW.TimeStampA == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    werks_DW.TimeStampA = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &werks_DW.LastUAtTimeA;
+} else if (werks_DW.TimeStampB == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    werks_DW.TimeStampB = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &werks_DW.LastUAtTimeB;
+} else if (werks_DW.TimeStampA < werks_DW.TimeStampB) {
+    werks_DW.TimeStampA = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &werks_DW.LastUAtTimeA;
+} else {
+    werks_DW.TimeStampB = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &werks_DW.LastUAtTimeB;
+}
+*lastU = werks_B.Sum;
+/* End of Update for Derivative: '<Root>/Derivative' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%<LibSetSystemField(system, "CachedUpdateLocalVars", localVarDecl)>
+%endfunction

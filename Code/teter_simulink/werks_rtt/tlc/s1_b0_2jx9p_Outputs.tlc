@@ -1,0 +1,143 @@
+%implements s1_b0_2jx9p_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T *lastU;
+real_T A[4];
+real_T B[2];
+int16_T r1;
+int16_T r2;
+real_T a22;
+real_T rtb_Sum1;
+real_T rtb_TLTR_idx_0;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS1B3 = OpaqueTLCBlockFcn("Outputs", 1, 3, 0, 1)
+%assign tlcOutputsFcnOfS1B4 = OpaqueTLCBlockFcn("Outputs", 1, 4, 0, 1)
+%assign tlcOutputsFcnOfS1B5 = OpaqueTLCBlockFcn("Outputs", 1, 5, 0, 1)
+%assign tlcOutputsFcnOfS1B6 = OpaqueTLCBlockFcn("Outputs", 1, 6, 0, 1)
+%<SLibGenerateExtModeOutput(system)>
+if (%<(SLibCGIRIsSampleHit(1, 1))>) {
+    /* Step: '<Root>/Set Angle' */
+    if (%<(SLibCG_SE(LibGetTaskTime(1)))> < werks_P.SetAngle_Time) {
+        werks_B.SetAngle = werks_P.SetAngle_Y0;
+    } else {
+        werks_B.SetAngle = werks_P.SetAngle_YFinal;
+    }
+    /* End of Step: '<Root>/Set Angle' */
+}
+/* Integrator: '<Root>/Integrator' */
+werks_B.Integrator = werks_X.Integrator_CSTATE;
+/* Sum: '<Root>/Sum' */
+werks_B.Sum = werks_B.SetAngle - werks_B.Integrator;
+/* Derivative: '<Root>/Derivative' */
+if ((werks_DW.TimeStampA >= %<(SLibCG_SE(LibGetT()))>) && (werks_DW.TimeStampB >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Sum1 = 0.0;
+} else {
+    rtb_Sum1 = werks_DW.TimeStampA;
+    lastU = &werks_DW.LastUAtTimeA;
+    if (werks_DW.TimeStampA < werks_DW.TimeStampB) {
+        if (werks_DW.TimeStampB < %<(SLibCG_SE(LibGetT()))>) {
+            rtb_Sum1 = werks_DW.TimeStampB;
+            lastU = &werks_DW.LastUAtTimeB;
+        }
+    } else {
+        if (werks_DW.TimeStampA >= %<(SLibCG_SE(LibGetT()))>) {
+            rtb_Sum1 = werks_DW.TimeStampB;
+            lastU = &werks_DW.LastUAtTimeB;
+        }
+    }
+    rtb_Sum1 = (werks_B.Sum - *lastU) / (%<(SLibCG_SE(LibGetT()))> - rtb_Sum1);
+}
+/* End of Derivative: '<Root>/Derivative' */
+
+/* Sum: '<Root>/Sum1' incorporates:
+ *  Gain: '<Root>/Gain'
+ *  Gain: '<Root>/Gain1'
+ *  Gain: '<Root>/Gain2'
+ *  Integrator: '<Root>/Integrator1'
+ */
+rtb_Sum1 = (werks_P.Gain_Gain * werks_B.Sum + werks_P.Gain1_Gain * werks_X.Integrator1_CSTATE) + werks_P.Gain2_Gain * rtb_Sum1;
+/* Saturate: '<Root>/Saturation' */
+if (rtb_Sum1 > werks_P.Saturation_UpperSat) {
+    werks_B.Saturation = werks_P.Saturation_UpperSat;
+} else if (rtb_Sum1 < werks_P.Saturation_LowerSat) {
+    werks_B.Saturation = werks_P.Saturation_LowerSat;
+} else {
+    werks_B.Saturation = rtb_Sum1;
+}
+/* End of Saturate: '<Root>/Saturation' */
+
+/* MATLAB Function: '<Root>/CommunicateSerial' incorporates:
+ *  Constant: '<Root>/length'
+ *  Constant: '<Root>/weight'
+ */
+/* MATLAB Function 'CommunicateSerial': '<S1>:1' */
+/* '<S1>:1:3' */
+/* '<S1>:1:4' */
+A[0] = cos(werks_B.Integrator);
+A[2] = cos(werks_B.Integrator);
+A[1] = -werks_P.length_Value / 2.0;
+A[3] = werks_P.length_Value / 2.0;
+B[0] = werks_P.weight_Value;
+B[1] = werks_B.Saturation;
+if (fabs(A[1]) > fabs(A[0])) {
+    r1 = 1;
+    r2 = 0;
+} else {
+    r1 = 0;
+    r2 = 1;
+}
+rtb_Sum1 = A[r2] / A[r1];
+a22 = A[2 + r2] - A[2 + r1] * rtb_Sum1;
+rtb_Sum1 = B[r2] - B[r1] * rtb_Sum1;
+/* '<S1>:1:5' */
+rtb_TLTR_idx_0 = %<(SLibCGCallSubFcn("rt_roundd_snf", ["(B[r1] - rtb_Sum1 / a22 * A[2 + r1]) / A[r1] * 180.0 / 5.1012"], 0, 1, 1))>;
+/* '<S1>:1:6' */
+rtb_Sum1 = %<(SLibCGCallSubFcn("rt_roundd_snf", ["rtb_Sum1 / a22 * 180.0 / 5.1012"], 0, 1, 0))>;
+/* End of MATLAB Function: '<Root>/CommunicateSerial' */
+
+/* Saturate: '<Root>/Saturation1' */
+if (rtb_TLTR_idx_0 > werks_P.Saturation1_UpperSat) {
+    werks_B.Saturation1[0] = werks_P.Saturation1_UpperSat;
+} else if (rtb_TLTR_idx_0 < werks_P.Saturation1_LowerSat) {
+    werks_B.Saturation1[0] = werks_P.Saturation1_LowerSat;
+} else {
+    werks_B.Saturation1[0] = rtb_TLTR_idx_0;
+}
+if (rtb_Sum1 > werks_P.Saturation1_UpperSat) {
+    werks_B.Saturation1[1] = werks_P.Saturation1_UpperSat;
+} else if (rtb_Sum1 < werks_P.Saturation1_LowerSat) {
+    werks_B.Saturation1[1] = werks_P.Saturation1_LowerSat;
+} else {
+    werks_B.Saturation1[1] = rtb_Sum1;
+}
+/* End of Saturate: '<Root>/Saturation1' */
+if (%<(SLibCGIRIsSampleHit(1, 1))>) {
+    /* SignalConversion: '<Root>/TmpSignal ConversionAtTo WorkspaceInport1' */
+    werks_B.TmpSignalConversionAtToWorkspac[0] = werks_B.Saturation1[0];
+    werks_B.TmpSignalConversionAtToWorkspac[1] = werks_B.Saturation1[1];
+    werks_B.TmpSignalConversionAtToWorkspac[2] = werks_B.Saturation;
+%<tlcOutputsFcnOfS1B3>\
+    /* SignalConversion: '<Root>/TmpSignal ConversionAtTo Workspace1Inport1' */
+    werks_B.TmpSignalConversionAtToWorksp_g[0] = werks_B.SetAngle;
+    werks_B.TmpSignalConversionAtToWorksp_g[1] = werks_B.Integrator;
+%<tlcOutputsFcnOfS1B4>\
+}
+%<tlcOutputsFcnOfS1B5>\
+if (%<(SLibCGIRIsSampleHit(1, 1))>) {
+%<tlcOutputsFcnOfS1B6>\
+}
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
