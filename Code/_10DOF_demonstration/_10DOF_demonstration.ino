@@ -13,6 +13,9 @@ Servo prop2;
 int readP1;
 int readP2;
 int setP;
+int pos1,pos2;
+
+void printFloat(float temp);
 
 void setup(void) 
 {
@@ -45,6 +48,7 @@ void setup(void)
   prop2.attach(9);
   prop1.write(0);
   prop2.write(0);
+  delay(500);
 }
 
 void loop(void) 
@@ -66,26 +70,33 @@ void loop(void)
      case 1: // set the postion or velocity to the motors
       prop1.write(readP1);
       prop2.write(readP2);
-      Serial.println((int)(event1.gyro.x*100));
+      printFloat(event.acceleration.y);
       break;
+      
+      
       
      case 9:  // send back the IMU data
       
-      Serial.println((int)(event.acceleration.x*100)); 
-      Serial.println((int)(event.acceleration.y*100)); 
-      Serial.println((int)(event.acceleration.z*100)); 
-      Serial.println((int)(event1.gyro.x*100));
-      Serial.println((int)(event1.gyro.y*100));
-      Serial.println((int)(event1.gyro.z*100));
+      printFloat(event.acceleration.x); 
+      printFloat(event.acceleration.y); 
+      printFloat(event.acceleration.z); 
+      printFloat(event1.gyro.x);
+      printFloat(event1.gyro.y);
+      printFloat(event1.gyro.z);
       //Serial.flush();
       break;
       
      case 10:   // read the current value of the prop1 position
-      int pos1 = prop1.read();
-      int pos2 = prop2.read();
+      pos1 = prop1.read();
+      pos2 = prop2.read();
       Serial.println(pos1);
       Serial.println(pos2);
      // Serial.flush();
+      break;
+      
+      case 11:
+      printFloat(4.3);
+      printFloat(3.4);
       break;
      }
   }
@@ -94,4 +105,10 @@ void loop(void)
   //Serial.flush();
   }
   Serial.flush();
+}
+
+void printFloat(float temp){
+ byte *b = (byte *) &temp;
+ Serial.write(b,4);
+ return; 
 }
