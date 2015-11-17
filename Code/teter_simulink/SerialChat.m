@@ -1,4 +1,4 @@
-function [out] = SerialChat( s, opsetP, readP )
+function [out] = SerialChat( s, opsetP, readP1 )
 switch opsetP
     case 1
         fprintf(s,strcat(num2str(opsetP),',',num2str(readP)));
@@ -26,5 +26,3 @@ switch opsetP
         out = '';
 end
 end
-
-fprintf(s,strcat(num2str(1),',',num2str(u(1)),',',num2str(u(2))))
