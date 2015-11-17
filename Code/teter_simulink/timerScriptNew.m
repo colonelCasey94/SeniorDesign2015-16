@@ -1,5 +1,5 @@
+clear;
 iterations = 1000;
-fclose(instrfind);
 s = serial('COM4');
 set(s, 'DataBits', 8);
 set(s, 'StopBits', 1);
@@ -18,15 +18,22 @@ lapse = zeros(1,iterations);
 
 for i = 1:iterations
     tic;
-    fprintf(s,strcat('1,',num2str(mod(i,2)),',',num2str(mod(i+1,2))));
+    fprintf(s,'1,0,0');
     theta(i) = -(fread(s,1,'float')+.09);
     flushinput(s);
     lapse(i) = toc;
 end
 
-fprintf(s,'1,0,0');
+
 flushinput(s);
 fclose(s);
 
-figure(1);hist(lapse);
-figure(2);plot(1:iterations,lapse,'rx');
+subplot(2,1,1);
+plot(1:iterations,lapse,'r.');
+hold on;
+axis([0 1000 0 max(lapse)]);
+text(750,(max(lapse)-min(lapse))/2,strcat('mean: ',num2str(mean(lapse))));
+subplot(2,1,2);
+hist(lapse,500);
+max = max(lapse)
+min = min(lapse)
